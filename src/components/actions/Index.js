@@ -1,11 +1,11 @@
-import * as action from './ActionTypes';
+import * as act from './ActionTypes';
 
 export const getProductsSuccess = (products) => ({
-  type: action.GET_PRODUCTS_SUCCESS,
+  type: act.GET_PRODUCTS_SUCCESS,
   products
 });
 
 export const GET_PRODUCTS_FAILURE = (error) => ({
-  type: action.GET_PRODUCTS_FAILURE,
+  type: act.GET_PRODUCTS_FAILURE,
   error
 });

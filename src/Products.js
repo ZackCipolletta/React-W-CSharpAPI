@@ -1,7 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useReducer } from "react";
+import productsReducer from "./components/reducers/products-reducer";
 import { getProductsSuccess, getProductsFailure } from "./components/actions/Index";
 
+const initialState = {
+  isLoaded: false,
+  products: [],
+  error: null
+};
+
 function Products() {
+
+  const [state, dispatch] = useReducer(productsReducer, initialState);
 
   useEffect(() => {
     fetch(`address`)
@@ -43,3 +52,5 @@ function Products() {
     );
   }
 }
+
+export default Products;
