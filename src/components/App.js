@@ -1,10 +1,10 @@
 import React from "react";
-import Products from "./Products";
+import ProductList from "./ProductList";
 
 function App() {
   return (
     <React.Fragment>
-      <Products />
+      <ProductList />
     </React.Fragment>
   );
 }

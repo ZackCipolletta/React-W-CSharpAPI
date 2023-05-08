@@ -1,6 +1,12 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useEffect, useReducer, Fragment, useState } from "react";
 import productsReducer from "./reducers/products-reducer";
 import { getProductsSuccess, getProductsFailure } from "./actions/Index";
+import {
+  chakra, Box, Stack, VStack, HStack, Flex, Text, Image,
+  Container, Icon, StackProps, Button, ButtonProps, useColorModeValue
+} from '@chakra-ui/react';
+import { AiOutlineHeart, AiOutlineExclamationCircle } from 'react-icons/ai';
+import { BsTelephoneX } from 'react-icons/bs';
 
 const initialState = {
   isLoaded: false,
@@ -8,8 +14,19 @@ const initialState = {
   error: null
 };
 
+
+const CustomButton = ({ children, ...props }) => {
+  return (
+    <Button textTransform="uppercase" lineHeight="inherit" rounded="md" {...props}>
+      {children}
+    </Button>
+  );
+};
+
+
 function Products() {
 
+  const [backgroundColor, setBackgroundColor] = useState(useColorModeValue('white', 'gray.800'));
   const [state, dispatch] = useReducer(productsReducer, initialState);
 
   useEffect(() => {
@@ -44,16 +61,51 @@ function Products() {
     return (
       <React.Fragment>
         <h1>Products</h1>
-        <ul>
-          {products && products.map((product, index) =>
-            <li key={index}>
-              <h3>{product.brand}</h3>
-              <p>{product.type}</p>
-              <p>{product.name}</p>
-              <p><img src={product.imageLink} /></p>
-            </li>
-          )}
-        </ul>
+        {products && products.map((product, index) =>
+          <Container p={{ base: 5, md: 10 }}>
+            <Box
+              borderWidth="1px"
+              // borderColor={"black"}
+              _hover={{ shadow: 'lg' }}
+              rounded="md"
+              overflow="hidden"
+              bg={backgroundColor}
+            >
+              <Image
+                src={product.imageLink}
+                objectFit="cover"
+                w="100%"
+              />
+              <Box p={{ base: 3, sm: 5 }}>
+                <Box mb={6}>
+                  <chakra.h3
+                    fontSize={{ base: 'lg', sm: '2xl' }}
+                    fontWeight="bold"
+                    lineHeight="1.2"
+                    mb={2}
+                  >
+                    {product.brand}<span> {product.type}</span><br />
+                    Model: {product.name}
+                    
+                  </chakra.h3>
+                  <Text fontSize={{ base: 'md', sm: 'lg' }} noOfLines={2}>
+                    {product.description}
+                  </Text>
+                </Box>
+                <Stack
+                  justify="space-between"
+                  direction={{ base: 'column', sm: 'row' }}
+                  spacing={{ base: 2, sm: 0 }}
+                >
+                  <CustomButton variant="outline">Not a member?</CustomButton>
+                  <CustomButton colorScheme="teal" variant="solid">
+                    Access Now
+                  </CustomButton>
+                </Stack>
+              </Box>
+            </Box>
+          </Container>
+        )}
       </React.Fragment>
     );
   }
