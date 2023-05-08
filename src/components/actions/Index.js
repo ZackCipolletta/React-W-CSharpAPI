@@ -5,7 +5,7 @@ export const getProductsSuccess = (products) => ({
   products
 });
 
-export const GET_PRODUCTS_FAILURE = (error) => ({
+export const getProductsFailure = (error) => ({
   type: act.GET_PRODUCTS_FAILURE,
   error
 });
